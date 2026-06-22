@@ -1,13 +1,21 @@
 """Streamlit Community Cloud entry point for Merlin.
 
-Adds the src/ directory to the Python path so the
-balloon_quantity_analyzer package is importable, then loads the app UI.
+Streamlit re-runs this file on every session and interaction. We must
+*re-execute* the app module each run rather than `import` it: a plain
+import only runs the module body once (Python caches it in sys.modules),
+which leaves every subsequent session with a blank page.
+
+`runpy.run_path` executes app.py fresh on every rerun, so all the
+Streamlit UI commands fire each time. We add src/ to sys.path first so
+the balloon_quantity_analyzer package imports resolve.
 """
 
+import runpy
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+SRC = Path(__file__).parent / "src"
+sys.path.insert(0, str(SRC))
 
-# Importing the module executes the Streamlit UI defined at module level.
-import balloon_quantity_analyzer.app  # noqa: E402,F401
+APP = SRC / "balloon_quantity_analyzer" / "app.py"
+runpy.run_path(str(APP), run_name="__main__")
