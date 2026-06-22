@@ -1,11 +1,14 @@
-opencv-python-headless>=4.8.0
-pytesseract>=0.3.10
-pdf2image>=1.16.0
-pdfplumber>=0.10.0
-pypdf>=3.0.0
-streamlit>=1.30.0
-openpyxl>=3.1.0
-xlrd>=2.0.0
-numpy>=1.24.0
-pandas>=2.0.0
-Pillow>=10.0.0
+# Pinned to stable, well-tested ranges for Streamlit Community Cloud.
+# Upper bounds prevent Cloud from pulling bleeding-edge majors
+# (e.g. pandas 3.x, numpy 2.5, streamlit 1.58) that can break rendering.
+# Pair this with Python 3.13 in the app's Advanced settings.
+streamlit>=1.37,<1.50
+numpy>=1.24,<2.2
+pandas>=2.0,<2.3
+opencv-python-headless>=4.8,<4.11
+pdf2image>=1.16,<1.18
+pdfplumber>=0.10,<0.12
+pypdf>=3.0,<5.0
+openpyxl>=3.1,<3.2
+xlrd>=2.0,<2.1
+Pillow>=10.0,<11.1
